@@ -5,7 +5,14 @@ export async function GET() {
                              process.env.NEXT_PUBLIC_APPWRITE_PROJECT && 
                              process.env.NEXT_APPWRITE_KEY;
     
+    console.log('Health Check - Appwrite Config:', {
+      endpoint: process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT ? '✅ Set' : '❌ Missing',
+      project: process.env.NEXT_PUBLIC_APPWRITE_PROJECT ? '✅ Set' : '❌ Missing',
+      key: process.env.NEXT_APPWRITE_KEY ? '✅ Set' : '❌ Missing'
+    });
+    
     if (!hasAppwriteConfig) {
+      console.log('Health Check - Missing Appwrite config, using demo mode');
       return Response.json({ 
         status: 'offline', 
         message: 'Missing Appwrite configuration - using demo mode',
