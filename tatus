@@ -1,0 +1,5 @@
+[33m01b683b[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m Fix health API with better logging and robust Appwrite connection test
+[33m7ae58ab[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m Fix all pages with demo mode protection and perfect Appwrite integration
+[33mf5e8dbc[m Resolve merge conflict - keep local README
+[33mec55d9f[m Fix authentication flow, demo mode, and status indicator - Perfect demo data and proper routing
+[33m286bf26[m Update README.md

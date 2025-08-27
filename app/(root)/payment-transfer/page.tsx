@@ -19,7 +19,7 @@ const Transfer = async () => {
       if (healthData.mode === 'demo') {
         loggedIn = await getDemoUser();
         isDemoMode = true;
-        console.log('Payment Transfer: Demo mode activated - using demo user:', loggedIn);
+        console.log('Transfer: Demo mode activated - using demo user:', loggedIn);
       } else {
         // Appwrite is configured but user not logged in - redirect to sign-in
         return (
@@ -35,7 +35,7 @@ const Transfer = async () => {
       // If health check fails, assume demo mode
       loggedIn = await getDemoUser();
       isDemoMode = true;
-      console.log('Payment Transfer: Demo mode activated (fallback) - using demo user:', loggedIn);
+      console.log('Transfer: Demo mode activated (fallback) - using demo user:', loggedIn);
     }
   }
 
