@@ -131,9 +131,6 @@ Risk Assessment Matrix:
 - Node.js 18+ 
 - npm or yarn package manager
 - Modern web browser with ES6+ support
-
-
-
 ## 📈 **Project Statistics**
 
 - **🔄 100+ Components** built with TypeScript
