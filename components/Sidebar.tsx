@@ -8,7 +8,7 @@ import { usePathname } from 'next/navigation'
 import Footer from './Footer'
 import PlaidLink from './PlaidLink'
 
-const Sidebar = ({ user }: SiderbarProps) => {
+const Sidebar = ({ user, isDemoMode = false }: SiderbarProps & { isDemoMode?: boolean }) => {
   const pathname = usePathname();
 
   return (
@@ -49,10 +49,10 @@ const Sidebar = ({ user }: SiderbarProps) => {
           )
         })}
         
-        <PlaidLink user={user} />
+        {!isDemoMode && <PlaidLink user={user} />}
       </nav>
 
-      <Footer user={user} />
+      <Footer user={user} isDemoMode={isDemoMode} />
     </section>
   )
 }

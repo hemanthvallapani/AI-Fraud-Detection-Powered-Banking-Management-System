@@ -3,13 +3,19 @@ import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import React from 'react'
 
-const Footer = ({ user, type = 'desktop' }: FooterProps) => {
+const Footer = ({ user, type = 'desktop', isDemoMode = false }: FooterProps & { isDemoMode?: boolean }) => {
   const router = useRouter();
 
   const handleLogOut = async () => {
-    const loggedOut = await logoutAccount();
+    if (isDemoMode) {
+      // In demo mode, just redirect to sign-in
+      router.push('/sign-in');
+      return;
+    }
 
-    if(loggedOut) router.push('/sign-in')
+    await logoutAccount();
+    // Always redirect to sign-in after logout
+    router.push('/sign-in');
   }
 
   return (

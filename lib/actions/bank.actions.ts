@@ -60,19 +60,19 @@ export const getAccounts = async ({ userId }: getAccountsProps) => {
   } catch (error) {
     console.log('Appwrite getAccounts failed, using mock data');
     
-    // Fallback to mock data
+    // Fallback to mock data with perfect demo data
     const mockAccounts = [{
-      id: 'mock-account-123',
-      availableBalance: 10000,
-      currentBalance: 10000,
-      institutionId: 'mock-institution',
+      id: 'demo-account-123',
+      availableBalance: 25450.75,
+      currentBalance: 25450.75,
+      institutionId: 'demo-institution',
       name: 'Demo Bank Account',
       officialName: 'Demo Checking Account',
       mask: '1234',
       type: 'depository',
       subtype: 'checking',
-      appwriteItemId: 'mock-bank-123',
-      sharaebleId: 'mock-shareable-123',
+      appwriteItemId: 'demo-bank-123',
+      shareableId: 'demo-shareable-123',
     }];
 
     const totalBanks = mockAccounts.length;
@@ -151,43 +151,55 @@ export const getAccount = async ({ appwriteItemId }: getAccountProps) => {
   } catch (error) {
     console.log('Appwrite getAccount failed, using mock data');
     
-    // Fallback to mock data
+    // Fallback to mock data with perfect demo data
     const mockAccount = {
-      id: 'mock-account-123',
-      availableBalance: 10000,
-      currentBalance: 10000,
-      institutionId: 'mock-institution',
+      id: 'demo-account-123',
+      availableBalance: 25450.75,
+      currentBalance: 25450.75,
+      institutionId: 'demo-institution',
       name: 'Demo Bank Account',
       officialName: 'Demo Checking Account',
       mask: '1234',
       type: 'depository',
       subtype: 'checking',
-      appwriteItemId: 'mock-bank-123',
+      appwriteItemId: 'demo-bank-123',
     };
 
     const mockTransactions = [
       {
-        id: 'mock-tx-1',
-        name: 'Sample Transaction',
+        id: 'demo-tx-1',
+        name: 'Coffee Shop Purchase',
         paymentChannel: 'online',
         type: 'online',
-        accountId: 'mock-account',
-        amount: 50.00,
+        accountId: 'demo-account',
+        amount: 12.50,
         pending: false,
         category: 'Food and Drink',
         date: new Date().toISOString().split('T')[0],
         image: null,
       },
       {
-        id: 'mock-tx-2',
-        name: 'Demo Purchase',
+        id: 'demo-tx-2',
+        name: 'Online Shopping',
         paymentChannel: 'online',
         type: 'online',
-        accountId: 'mock-account',
-        amount: 25.99,
+        accountId: 'demo-account',
+        amount: 89.99,
         pending: false,
         category: 'Shopping',
         date: new Date(Date.now() - 86400000).toISOString().split('T')[0], // Yesterday
+        image: null,
+      },
+      {
+        id: 'demo-tx-3',
+        name: 'Gas Station',
+        paymentChannel: 'in store',
+        type: 'in store',
+        accountId: 'demo-account',
+        amount: 45.75,
+        pending: false,
+        category: 'Transportation',
+        date: new Date(Date.now() - 172800000).toISOString().split('T')[0], // 2 days ago
         image: null,
       }
     ];

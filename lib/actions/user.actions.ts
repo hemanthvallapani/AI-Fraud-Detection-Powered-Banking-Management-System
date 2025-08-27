@@ -21,25 +21,25 @@ const BANK_COLLECTION_ID = APPWRITE_BANK_COLLECTION_ID || '68a5a26a001efed2aefc'
 
 // Simple mock data for fallback
 const mockUser = {
-  $id: 'mock-user-123',
+  $id: 'demo-user-123',
   email: 'demo@example.com',
   firstName: 'Demo',
   lastName: 'User',
   name: 'Demo User',
-  dwollaCustomerId: 'mock-dwolla-123',
-  dwollaCustomerUrl: 'https://mock-dwolla.com/customer/123',
-  userId: 'mock-user-123'
+  dwollaCustomerId: 'demo-dwolla-123',
+  dwollaCustomerUrl: 'https://demo-dwolla.com/customer/123',
+  userId: 'demo-user-123'
 };
 
 const mockBanks = [
   {
-    $id: 'mock-bank-123',
-    userId: 'mock-user-123',
-    bankId: 'mock-bank-id',
-    accountId: 'mock-account-123',
-    accessToken: 'mock-token',
-    fundingSourceUrl: 'https://mock-dwolla.com/funding/123',
-    shareableId: 'mock-shareable-123'
+    $id: 'demo-bank-123',
+    userId: 'demo-user-123',
+    bankId: 'demo-bank-id',
+    accountId: 'demo-account-123',
+    accessToken: 'demo-token',
+    fundingSourceUrl: 'https://demo-dwolla.com/funding/123',
+    shareableId: 'demo-shareable-123'
   }
 ];
 
@@ -164,6 +164,11 @@ export const signUp = async ({ password, ...userData }: SignUpParams) => {
   }
 }
 
+export async function getDemoUser() {
+  // Return demo user data when Appwrite is not available
+  return parseStringify(mockUser);
+}
+
 export async function getLoggedInUser() {
   try {
     const { account } = await createSessionClient();
@@ -172,8 +177,9 @@ export async function getLoggedInUser() {
     const user = await getUserInfo({ userId: result.$id})
     return parseStringify(user);
   } catch (error) {
-    console.log('Appwrite getLoggedInUser failed, using mock user');
-    return parseStringify(mockUser);
+    console.log('Appwrite getLoggedInUser failed - no valid session');
+    // Return null instead of mock user when authentication fails
+    return null;
   }
 }
 

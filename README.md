@@ -133,6 +133,7 @@ Risk Assessment Matrix:
 - Modern web browser with ES6+ support
 
 
+
 ## 📈 **Project Statistics**
 
 - **🔄 100+ Components** built with TypeScript
@@ -147,6 +148,7 @@ Risk Assessment Matrix:
 
 ### **Innovation in Fintech**
 - **First-of-its-kind** AI fraud detection integration
+- **Real-time risk assessment** with machine learning
 - **Production-ready architecture** for enterprise deployment
 - **Comprehensive banking solution** in a single platform
 
