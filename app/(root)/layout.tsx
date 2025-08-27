@@ -23,6 +23,7 @@ export default async function RootLayout({
       if (healthData.mode === 'demo') {
         loggedIn = await getDemoUser();
         isDemoMode = true;
+        console.log('Root layout: Demo mode activated - using demo user:', loggedIn);
       } else {
         // Appwrite is configured but user not logged in - redirect to sign-in
         redirect('/sign-in');
@@ -31,6 +32,7 @@ export default async function RootLayout({
       // If health check fails, assume demo mode
       loggedIn = await getDemoUser();
       isDemoMode = true;
+      console.log('Root layout: Demo mode activated (fallback) - using demo user:', loggedIn);
     }
   }
 

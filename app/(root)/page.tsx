@@ -19,6 +19,7 @@ const Home = async ({ searchParams: { id, page } }: SearchParamProps) => {
       if (healthData.mode === 'demo') {
         loggedIn = await getDemoUser();
         isDemoMode = true;
+        console.log('Demo mode activated - using demo user:', loggedIn);
       } else {
         // Appwrite is configured but user not logged in - redirect to sign-in
         return (
@@ -34,6 +35,7 @@ const Home = async ({ searchParams: { id, page } }: SearchParamProps) => {
       // If health check fails, assume demo mode
       loggedIn = await getDemoUser();
       isDemoMode = true;
+      console.log('Demo mode activated (fallback) - using demo user:', loggedIn);
     }
   }
 

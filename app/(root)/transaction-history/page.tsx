@@ -2,13 +2,44 @@ import HeaderBox from '@/components/HeaderBox'
 import { Pagination } from '@/components/Pagination';
 import TransactionsTable from '@/components/TransactionsTable';
 import { getAccount, getAccounts } from '@/lib/actions/bank.actions';
-import { getLoggedInUser } from '@/lib/actions/user.actions';
+import { getLoggedInUser, getDemoUser } from '@/lib/actions/user.actions';
 import { formatAmount } from '@/lib/utils';
 import React from 'react'
 
 const TransactionHistory = async ({ searchParams: { id, page }}:SearchParamProps) => {
   const currentPage = Number(page as string) || 1;
-  const loggedIn = await getLoggedInUser();
+  let loggedIn = await getLoggedInUser();
+  let isDemoMode = false;
+
+  // If no user logged in, check if we should show demo mode
+  if (!loggedIn) {
+    try {
+      const healthResponse = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/api/health`);
+      const healthData = await healthResponse.json();
+      
+      if (healthData.mode === 'demo') {
+        loggedIn = await getDemoUser();
+        isDemoMode = true;
+        console.log('Transaction History: Demo mode activated - using demo user:', loggedIn);
+      } else {
+        // Appwrite is configured but user not logged in - redirect to sign-in
+        return (
+          <div className="flex-center size-full">
+            <div className="text-center">
+              <h1 className="text-2xl font-bold mb-4">Please sign in to continue</h1>
+              <a href="/sign-in" className="text-blue-600 hover:underline">Go to Sign In</a>
+            </div>
+          </div>
+        );
+      }
+    } catch (error) {
+      // If health check fails, assume demo mode
+      loggedIn = await getDemoUser();
+      isDemoMode = true;
+      console.log('Transaction History: Demo mode activated (fallback) - using demo user:', loggedIn);
+    }
+  }
+
   const accounts = await getAccounts({ 
     userId: loggedIn.$id 
   })

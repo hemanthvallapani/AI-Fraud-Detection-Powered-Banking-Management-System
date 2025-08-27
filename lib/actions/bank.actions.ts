@@ -75,6 +75,8 @@ export const getAccounts = async ({ userId }: getAccountsProps) => {
       shareableId: 'demo-shareable-123',
     }];
 
+    console.log('Using demo accounts:', mockAccounts);
+
     const totalBanks = mockAccounts.length;
     const totalCurrentBalance = mockAccounts.reduce((total, account) => {
       return total + account.currentBalance;
@@ -203,6 +205,9 @@ export const getAccount = async ({ appwriteItemId }: getAccountProps) => {
         image: null,
       }
     ];
+
+    console.log('Using demo account:', mockAccount);
+    console.log('Using demo transactions:', mockTransactions);
 
     return parseStringify({
       data: mockAccount,

@@ -1,24 +1,42 @@
 import HeaderBox from '@/components/HeaderBox'
 import PaymentTransferForm from '@/components/PaymentTransferForm'
 import { getAccounts } from '@/lib/actions/bank.actions';
-import { getLoggedInUser } from '@/lib/actions/user.actions';
+import { getLoggedInUser, getDemoUser } from '@/lib/actions/user.actions';
 import FraudDetectionPanel from '@/components/FraudDetectionPanel';
 import { analyzeTransactionFraud } from '@/lib/actions/fraud.actions';
 import React from 'react'
 
 const Transfer = async () => {
-  const loggedIn = await getLoggedInUser();
-  
-  // Check if user is logged in
+  let loggedIn = await getLoggedInUser();
+  let isDemoMode = false;
+
+  // If no user logged in, check if we should show demo mode
   if (!loggedIn) {
-    return (
-      <div className="flex-center size-full">
-        <div className="text-center">
-          <h1 className="text-2xl font-bold mb-4">Please sign in to continue</h1>
-          <a href="/sign-in" className="text-blue-600 hover:underline">Go to Sign In</a>
-        </div>
-      </div>
-    );
+    try {
+      const healthResponse = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'}/api/health`);
+      const healthData = await healthResponse.json();
+      
+      if (healthData.mode === 'demo') {
+        loggedIn = await getDemoUser();
+        isDemoMode = true;
+        console.log('Payment Transfer: Demo mode activated - using demo user:', loggedIn);
+      } else {
+        // Appwrite is configured but user not logged in - redirect to sign-in
+        return (
+          <div className="flex-center size-full">
+            <div className="text-center">
+              <h1 className="text-2xl font-bold mb-4">Please sign in to continue</h1>
+              <a href="/sign-in" className="text-blue-600 hover:underline">Go to Sign In</a>
+            </div>
+          </div>
+        );
+      }
+    } catch (error) {
+      // If health check fails, assume demo mode
+      loggedIn = await getDemoUser();
+      isDemoMode = true;
+      console.log('Payment Transfer: Demo mode activated (fallback) - using demo user:', loggedIn);
+    }
   }
 
   const accounts = await getAccounts({ 
